@@ -14,6 +14,11 @@
 		A54F16472C2BE8FB002D9FDD /* CPCSTestTaskTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54F16462C2BE8FB002D9FDD /* CPCSTestTaskTests.swift */; };
 		A54F16512C2BE8FB002D9FDD /* CPCSTestTaskUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54F16502C2BE8FB002D9FDD /* CPCSTestTaskUITests.swift */; };
 		A54F16532C2BE8FB002D9FDD /* CPCSTestTaskUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54F16522C2BE8FB002D9FDD /* CPCSTestTaskUITestsLaunchTests.swift */; };
+		A54F16632C2BECD6002D9FDD /* OTPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54F16622C2BECD6002D9FDD /* OTPView.swift */; };
+		A54F16662C2BED36002D9FDD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54F16652C2BED36002D9FDD /* Constants.swift */; };
+		A54F16682C2BEDD0002D9FDD /* OTPTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54F16672C2BEDD0002D9FDD /* OTPTextFieldView.swift */; };
+		A54F166A2C2BEEB2002D9FDD /* PhoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54F16692C2BEEB2002D9FDD /* PhoneViewModel.swift */; };
+		A54F166D2C2BF243002D9FDD /* OtpModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54F166C2C2BF243002D9FDD /* OtpModifier.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +49,11 @@
 		A54F164C2C2BE8FB002D9FDD /* CPCSTestTaskUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CPCSTestTaskUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A54F16502C2BE8FB002D9FDD /* CPCSTestTaskUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPCSTestTaskUITests.swift; sourceTree = "<group>"; };
 		A54F16522C2BE8FB002D9FDD /* CPCSTestTaskUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPCSTestTaskUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		A54F16622C2BECD6002D9FDD /* OTPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPView.swift; sourceTree = "<group>"; };
+		A54F16652C2BED36002D9FDD /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		A54F16672C2BEDD0002D9FDD /* OTPTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPTextFieldView.swift; sourceTree = "<group>"; };
+		A54F16692C2BEEB2002D9FDD /* PhoneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneViewModel.swift; sourceTree = "<group>"; };
+		A54F166C2C2BF243002D9FDD /* OtpModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtpModifier.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +104,7 @@
 		A54F16342C2BE8FA002D9FDD /* CPCSTestTask */ = {
 			isa = PBXGroup;
 			children = (
+				A54F16642C2BED28002D9FDD /* Common */,
 				A54F16602C2BE9F4002D9FDD /* ViewModel */,
 				A54F165F2C2BE9E8002D9FDD /* Views */,
 				A54F16352C2BE8FA002D9FDD /* CPCSTestTaskApp.swift */,
@@ -132,6 +143,9 @@
 		A54F165F2C2BE9E8002D9FDD /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A54F166B2C2BF22B002D9FDD /* Modifiers */,
+				A54F16622C2BECD6002D9FDD /* OTPView.swift */,
+				A54F16672C2BEDD0002D9FDD /* OTPTextFieldView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -140,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				A54F16612C2BEA04002D9FDD /* UseCases */,
+				A54F16692C2BEEB2002D9FDD /* PhoneViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -149,6 +164,22 @@
 			children = (
 			);
 			path = UseCases;
+			sourceTree = "<group>";
+		};
+		A54F16642C2BED28002D9FDD /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				A54F16652C2BED36002D9FDD /* Constants.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		A54F166B2C2BF22B002D9FDD /* Modifiers */ = {
+			isa = PBXGroup;
+			children = (
+				A54F166C2C2BF243002D9FDD /* OtpModifier.swift */,
+			);
+			path = Modifiers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -281,8 +312,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A54F16682C2BEDD0002D9FDD /* OTPTextFieldView.swift in Sources */,
 				A54F16382C2BE8FA002D9FDD /* ContentView.swift in Sources */,
 				A54F16362C2BE8FA002D9FDD /* CPCSTestTaskApp.swift in Sources */,
+				A54F166D2C2BF243002D9FDD /* OtpModifier.swift in Sources */,
+				A54F166A2C2BEEB2002D9FDD /* PhoneViewModel.swift in Sources */,
+				A54F16632C2BECD6002D9FDD /* OTPView.swift in Sources */,
+				A54F16662C2BED36002D9FDD /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
