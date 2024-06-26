@@ -9,52 +9,56 @@ import Foundation
 import Combine
 
 protocol VerifyOTPUseCase {
-    var timeRemaining: Int { get set }
-    var timerExpired: Bool { get set }
-
+    var timeRemaining: CurrentValueSubject<Int, Error> { get set }
+    var timerExpired: CurrentValueSubject<Bool, Error> { get set }
+    var verified: PassthroughSubject<Bool, Error> { get set }
+    
     func verifyCode(code: String) -> Void
+    func startTimer() -> Void
 }
 
 final class DefaultVerifyOTPUseCase: VerifyOTPUseCase {
     
-    var timer: AnyCancellable?
+    private var timer: AnyCancellable?
+    private let takeCodeService: TakeCodeServiceProtocol
     
-    @Published var timeRemaining = Constants.COUNTDOWN_TIMER_LENGTH
-    @Published var timerExpired = false
+    var timeRemaining: CurrentValueSubject<Int, Error>
+    var timerExpired = CurrentValueSubject<Bool, Error>(false)
+    var verified = PassthroughSubject<Bool, Error>()
     
-    var verified: Bool = false
-    
-    init() {
+    init(takeCodeService: TakeCodeServiceProtocol) {
+        self.takeCodeService = takeCodeService
+        self.timeRemaining = CurrentValueSubject<Int, Error>(takeCodeService.refreshTime)
         startTimer()
     }
     
     func verifyCode(code: String) {
-        let storedCode = ""
-        verified = code == storedCode
+        let storedCode = takeCodeService.code
+        let verificationResult = code == storedCode
+        verified.send(verificationResult)
     }
     
     func startTimer() {
-        timerExpired = false
-        timeRemaining = Constants.COUNTDOWN_TIMER_LENGTH
+        timerExpired.send(false)
+        timeRemaining.send(takeCodeService.refreshTime)
         self.timer = Timer.publish(every: 1, on: .main, in: .common)
             .autoconnect()
             .sink { [weak self] _ in
                 self?.countDownString()
-                print(self?.timeRemaining)
             }
     }
     
-    func stopTimer() {
-        timerExpired = true
+    private func stopTimer() {
+        timerExpired.send(true)
         self.timer?.cancel()
     }
     
-    func countDownString() {
-        guard (timeRemaining > 0) else {
+    private func countDownString() {
+        guard (timeRemaining.value > 0) else {
             stopTimer()
             return
         }
         
-        timeRemaining -= 1
+        timeRemaining.send(timeRemaining.value - 1)
     }
 }

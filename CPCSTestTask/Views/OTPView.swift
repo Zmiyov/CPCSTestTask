@@ -9,7 +9,7 @@ import SwiftUI
 
 struct OTPView: View {
     
-    @StateObject var otpDataViewModel = OTPDataViewModel(verifyOTPUseCase: DefaultVerifyOTPUseCase())
+    @StateObject var otpDataViewModel = OTPDataViewModel(verifyOTPUseCase: DefaultVerifyOTPUseCase(takeCodeService: MockTakeCodeService()))
     
     var body: some View {
         VStack {
@@ -17,10 +17,21 @@ struct OTPView: View {
             Text("Verify your Email Address")
                 .font(.title2)
                 .fontWeight(.semibold)
-            Text(otpDataViewModel.infoText)
-                .font(.caption)
-                .fontWeight(.thin)
-                .padding(.top, 4)
+                .foregroundStyle(.black)
+            if otpDataViewModel.codeChecked {
+                Text(otpDataViewModel.infoText)
+                    .font(.caption)
+                    .fontWeight(.thin)
+                    .foregroundStyle(otpDataViewModel.verified ? .green : .red)
+                    .padding(.top, 4)
+            } else {
+                Text(otpDataViewModel.infoText)
+                    .font(.caption)
+                    .fontWeight(.thin)
+                    .foregroundStyle(.black)
+                    .padding(.top, 4)
+            }
+            
             
             OTPTextFieldView(otpDataViewModel: otpDataViewModel)
                 .padding(.horizontal, 50)
@@ -57,15 +68,12 @@ struct OTPView: View {
             .font(Font.system(size: 15))
             .foregroundColor(Color.black)
             .fontWeight(.regular)
-//            .onReceive(otpDataViewModel.timer) { _ in
-//                otpDataViewModel.countDownString()
-//            }
     }
     
     @ViewBuilder
     func ContinueButton() -> some View {
         Button(action: {
-            print("Continue")
+            otpDataViewModel.checkCode()
         }, label: {
             Spacer()
             Text("Continue")

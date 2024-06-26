@@ -72,5 +72,5 @@ struct OTPTextFieldView: View {
 }
 
 #Preview {
-    OTPTextFieldView(otpDataViewModel: OTPDataViewModel(verifyOTPUseCase: DefaultVerifyOTPUseCase()))
+    OTPTextFieldView(otpDataViewModel: OTPDataViewModel(verifyOTPUseCase: DefaultVerifyOTPUseCase(takeCodeService: MockTakeCodeService())))
 }

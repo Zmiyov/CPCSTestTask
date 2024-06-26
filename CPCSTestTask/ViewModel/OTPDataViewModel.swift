@@ -11,63 +11,69 @@ import Combine
 final class OTPDataViewModel: ObservableObject {
     
     var cancellables = Set<AnyCancellable>()
-
-    let verifyOTPUseCase: DefaultVerifyOTPUseCase
-    
-//    var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    
-    @Published var timeRemaining = Constants.COUNTDOWN_TIMER_LENGTH
+    let verifyOTPUseCase: VerifyOTPUseCase
+        
     @Published var timerExpired = false
     @Published var timeStr = "Resend code in 00:00"
     @Published var infoText = "Enter 4 digit code we'll text you on Email"
     @Published var continueButtonIsActive = false
     @Published var verificationCode = "" {
         didSet {
+            codeChecked = false
+            infoText = "Enter 4 digit code we'll text you on Email"
             continueButtonIsActive = !(verificationCode.count < Constants.OTP_CODE_LENGTH)
         }
     }
-    var isVerified = false
-    
-    init(verifyOTPUseCase: DefaultVerifyOTPUseCase) {
+    @Published var verified = false
+    @Published var codeChecked = false
+
+    init(verifyOTPUseCase: VerifyOTPUseCase) {
         self.verifyOTPUseCase = verifyOTPUseCase
         
-        bind()
+        bindTimerPublishers()
     }
     
-    private func bind() {
-        verifyOTPUseCase.$timeRemaining
-            .sink { [weak self] remainingTime in
+    private func bindTimerPublishers() {
+        
+        verifyOTPUseCase.timeRemaining
+            .receive(on: DispatchQueue.main)
+            .sink { _ in
+                
+            } receiveValue: { [weak self] remainingTime in
                 self?.timeStr = "Resend code in " + String(format: "%02d:%02d", 00, remainingTime)
             }.store(in: &cancellables)
-        
-        verifyOTPUseCase.$timerExpired
-            .sink { [weak self] timeExpired in
+
+        verifyOTPUseCase.timerExpired
+            .receive(on: DispatchQueue.main)
+            .sink { _ in
+                
+            } receiveValue: { [weak self] timeExpired in
                 self?.timerExpired = timeExpired
             }.store(in: &cancellables)
+        
+        verifyOTPUseCase.verified
+            .receive(on: DispatchQueue.main)
+            .sink { _ in
+                
+            } receiveValue: { [weak self] isVerified in
+                self?.codeChecked = true
+                self?.verified = isVerified
+                if isVerified {
+                    self?.infoText = "Code is verified!"
+                } else {
+                    self?.infoText = "Code is wrong. Please try again!"
+                }
+            }.store(in: &cancellables)
+
     }
     
-//    func startTimer() {
-//        timerExpired = false
-//        timeRemaining = Constants.COUNTDOWN_TIMER_LENGTH
-//        self.timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-//    }
-//    
-//    func stopTimer() {
-//        timerExpired = true
-//        self.timer.upstream.connect().cancel()
-//    }
-
-//    func countDownString() {
-//        guard (timeRemaining > 0) else {
-//            stopTimer()
-//            timeStr = "Resend code in " + String(format: "%02d:%02d", 00, 00)
-//            return
-//        }
-//        
-//        timeRemaining -= 1
-//        timeStr = "Resend code in " + String(format: "%02d:%02d", 00, timeRemaining)
-//    }
+    func startTimer() {
+        verifyOTPUseCase.startTimer()
+    }
     
+    func checkCode() {
+        verifyOTPUseCase.verifyCode(code: verificationCode)
+    }
     
     func getPin(at index: Int) -> String {
         guard self.verificationCode.count > index else {
