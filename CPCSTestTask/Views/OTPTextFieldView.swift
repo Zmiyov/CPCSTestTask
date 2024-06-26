@@ -6,34 +6,60 @@
 //
 
 import SwiftUI
-import Combine
 
 struct OTPTextFieldView: View {
+    
     enum FocusField: Hashable {
         case field
     }
     
-    @FocusState private var pinFocusState : FocusPin?
-    enum FocusPin {
-        case  pinOne, pinTwo, pinThree, pinFour
-    }
-    
-    @ObservedObject var phoneViewModel: PhoneViewModel
     @FocusState private var focusedField: FocusField?
+    @ObservedObject var otpDataViewModel: OTPDataViewModel
     
-    init(phoneViewModel: PhoneViewModel){
-        self.phoneViewModel = phoneViewModel
+    init(otpDataViewModel: OTPDataViewModel){
+        self.otpDataViewModel = otpDataViewModel
     }
     
-    private var backgroundTextField: some View {
-        return TextField("", text: $phoneViewModel.pin)
+    public var body: some View {
+        
+        ZStack(alignment: .center) {
+            BackgroundTextField()
+            HStack(spacing: 15) {
+                ForEach(0..<Constants.OTP_CODE_LENGTH) { index in
+                    ZStack {
+                        Text(otpDataViewModel.getPin(at: index))
+                            .font(Font.system(size: 24))
+                            .fontWeight(.regular)
+                            .foregroundColor(Color.black)
+                            .frame(width: 45, height: 45)
+                            .background(Color.white.cornerRadius(5))
+                            .background(
+                                RoundedRectangle(cornerRadius: 5)
+                                    .stroke(Color.blue, lineWidth: 2)
+                            )
+                    }
+                }
+            }
+        }
+    }
+    
+    @ViewBuilder
+    func BackgroundTextField() -> some View {
+        TextField("", text: $otpDataViewModel.verificationCode)
             .frame(width: 0, height: 0, alignment: .center)
             .font(Font.system(size: 0))
             .accentColor(.blue)
             .foregroundColor(.blue)
             .multilineTextAlignment(.center)
             .keyboardType(.numberPad)
-            .onReceive(Just(phoneViewModel.pin)) { _ in phoneViewModel.limitText(Constants.OTP_CODE_LENGTH) }
+            .onChange(of: otpDataViewModel.verificationCode) {oldVal, newVal in
+                let filtered = newVal.filter { "0123456789".contains($0) }
+                if filtered == newVal, filtered.count <= Constants.OTP_CODE_LENGTH {
+                    otpDataViewModel.verificationCode = filtered
+                } else {
+                    otpDataViewModel.verificationCode = oldVal
+                }
+            }
             .focused($focusedField, equals: .field)
             .task {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5)
@@ -43,71 +69,8 @@ struct OTPTextFieldView: View {
             }
             .padding()
     }
-    
-    public var body: some View {
-        VStack {
-            ZStack(alignment: .center) {
-                backgroundTextField
-                HStack {
-                    ForEach(0..<Constants.OTP_CODE_LENGTH) { index in
-                        ZStack {
-                            Text(phoneViewModel.getPin(at: index))
-                                .font(Font.system(size: 27))
-                                .fontWeight(.semibold)
-                                .foregroundColor(Color.textColorPrimary)
-                            Rectangle()
-                                .frame(height: 2)
-                                .foregroundColor(Color.textColorPrimary)
-                                .padding(.trailing, 5)
-                                .padding(.leading, 5)
-                                .opacity(phoneViewModel.pin.count <= index ? 1 : 0)
-                        }
-                    }
-                }
-            }
-            RoundedBorderTextField()
-        }
-    }
-    
-    @ViewBuilder
-    func RoundedBorderTextField() -> some View {
-        HStack(spacing:15) {
-            
-            TextField("", text: $phoneViewModel.pinOne)
-                .modifier(OtpModifer(pin: $phoneViewModel.pinOne))
-                .onChange(of: phoneViewModel.pinOne) {oldVal, newVal in
-                    if (newVal.count == 1) {
-                        pinFocusState = .pinTwo
-                    }
-                }
-                .focused($pinFocusState, equals: .pinOne)
-            
-            TextField("", text:  $phoneViewModel.pinTwo)
-                .modifier(OtpModifer(pin: $phoneViewModel.pinTwo))
-                .onChange(of: phoneViewModel.pinTwo) {oldVal, newVal in
-                    if (newVal.count == 1) {
-                        pinFocusState = .pinThree
-                    }
-                }
-                .focused($pinFocusState, equals: .pinTwo)
-            
-            TextField("", text: $phoneViewModel.pinThree)
-                .modifier(OtpModifer(pin: $phoneViewModel.pinThree))
-                .onChange(of: phoneViewModel.pinThree) {oldVal, newVal in
-                    if (newVal.count == 1) {
-                        pinFocusState = .pinFour
-                    }
-                }
-                .focused($pinFocusState, equals: .pinThree)
-            
-            TextField("", text: $phoneViewModel.pinFour)
-                .modifier(OtpModifer(pin: $phoneViewModel.pinFour))
-                .focused($pinFocusState, equals: .pinFour)
-        }
-        .padding(.vertical)
-    }
 }
 
 #Preview {
-    OTPTextFieldView(phoneViewModel: PhoneViewModel())
+    OTPTextFieldView(otpDataViewModel: OTPDataViewModel(verifyOTPUseCase: DefaultVerifyOTPUseCase()))
 }

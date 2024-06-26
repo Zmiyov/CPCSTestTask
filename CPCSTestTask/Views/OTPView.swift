@@ -9,7 +9,7 @@ import SwiftUI
 
 struct OTPView: View {
     
-    @StateObject var phoneViewModel = PhoneViewModel()
+    @StateObject var otpDataViewModel = OTPDataViewModel(verifyOTPUseCase: DefaultVerifyOTPUseCase())
     
     var body: some View {
         VStack {
@@ -17,29 +17,69 @@ struct OTPView: View {
             Text("Verify your Email Address")
                 .font(.title2)
                 .fontWeight(.semibold)
-            
-            
-            Text("Enter 4 digit code we'll text you on Email")
+            Text(otpDataViewModel.infoText)
                 .font(.caption)
                 .fontWeight(.thin)
-                .padding(.top)
+                .padding(.top, 4)
             
-            OTPTextFieldView(phoneViewModel: phoneViewModel)
-                .padding()
+            OTPTextFieldView(otpDataViewModel: otpDataViewModel)
+                .padding(.horizontal, 50)
+                .padding(.vertical, 20)
+                .padding(.top, 8)
             
-            Button(action: {}, label: {
-                Spacer()
-                Text("Verify")
-                    .font(.system(.title3, design: .rounded))
-                    .fontWeight(.semibold)
-                    .foregroundColor(.white)
-                Spacer()
-            })
-            .padding(15)
-            .background(Color.blue)
-            .clipShape(Capsule())
-            .padding()
+            VStack(spacing: 0){
+                CountDownView()
+                ButtonReactivate()
+                ContinueButton()
+            }
         }
+    }
+    
+    @ViewBuilder
+    func ButtonReactivate() -> some View {
+        Button(action: {
+            otpDataViewModel.startTimer()
+        }) {
+            Text("Resend")
+                .foregroundColor(otpDataViewModel.timerExpired ? Color.blue : Color.gray)
+                .font(Font.system(size: 15))
+                .fontWeight(.medium)
+                .frame(maxWidth: 150)
+        }
+        .padding(15)
+        .cornerRadius(50)
+        .disabled(!otpDataViewModel.timerExpired)
+    }
+    
+    @ViewBuilder
+    func CountDownView() -> some View {
+        Text(otpDataViewModel.timeStr)
+            .font(Font.system(size: 15))
+            .foregroundColor(Color.black)
+            .fontWeight(.regular)
+//            .onReceive(otpDataViewModel.timer) { _ in
+//                otpDataViewModel.countDownString()
+//            }
+    }
+    
+    @ViewBuilder
+    func ContinueButton() -> some View {
+        Button(action: {
+            print("Continue")
+        }, label: {
+            Spacer()
+            Text("Continue")
+                .font(.system(.title3, design: .rounded))
+                .fontWeight(.semibold)
+                .foregroundColor(.white)
+            Spacer()
+        })
+        .padding(15)
+        .background(otpDataViewModel.continueButtonIsActive ? Color.blue : Color.gray)
+        .clipShape(Capsule())
+        .padding(.horizontal)
+        .padding(.top)
+        .disabled(!otpDataViewModel.continueButtonIsActive)
     }
 }
 
