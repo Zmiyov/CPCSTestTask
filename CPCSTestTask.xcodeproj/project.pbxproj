@@ -94,6 +94,8 @@
 		A54F16342C2BE8FA002D9FDD /* CPCSTestTask */ = {
 			isa = PBXGroup;
 			children = (
+				A54F16602C2BE9F4002D9FDD /* ViewModel */,
+				A54F165F2C2BE9E8002D9FDD /* Views */,
 				A54F16352C2BE8FA002D9FDD /* CPCSTestTaskApp.swift */,
 				A54F16372C2BE8FA002D9FDD /* ContentView.swift */,
 				A54F16392C2BE8FB002D9FDD /* Assets.xcassets */,
@@ -125,6 +127,28 @@
 				A54F16522C2BE8FB002D9FDD /* CPCSTestTaskUITestsLaunchTests.swift */,
 			);
 			path = CPCSTestTaskUITests;
+			sourceTree = "<group>";
+		};
+		A54F165F2C2BE9E8002D9FDD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A54F16602C2BE9F4002D9FDD /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A54F16612C2BEA04002D9FDD /* UseCases */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		A54F16612C2BEA04002D9FDD /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UseCases;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
