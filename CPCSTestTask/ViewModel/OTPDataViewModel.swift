@@ -72,7 +72,7 @@ final class OTPDataViewModel: ObservableObject {
     }
     
     func checkCode() {
-        verifyOTPUseCase.verifyCode(code: verificationCode)
+        verifyOTPUseCase.sendCodeVerifyingResult(code: verificationCode)
     }
     
     func getPin(at index: Int) -> String {

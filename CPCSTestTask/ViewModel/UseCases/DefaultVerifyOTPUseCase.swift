@@ -13,7 +13,8 @@ protocol VerifyOTPUseCase {
     var timerExpired: CurrentValueSubject<Bool, Error> { get set }
     var verified: PassthroughSubject<Bool, Error> { get set }
     
-    func verifyCode(code: String) -> Void
+    func sendCodeVerifyingResult(code: String) -> Void
+    func checkCode(code: String) -> Bool
     func startTimer() -> Void
 }
 
@@ -32,10 +33,14 @@ final class DefaultVerifyOTPUseCase: VerifyOTPUseCase {
         startTimer()
     }
     
-    func verifyCode(code: String) {
-        let storedCode = takeCodeService.code
-        let verificationResult = code == storedCode
+    func sendCodeVerifyingResult(code: String) {
+        let verificationResult = checkCode(code: code)
         verified.send(verificationResult)
+    }
+    
+    func checkCode(code: String) -> Bool {
+        let storedCode = takeCodeService.code
+        return code == storedCode
     }
     
     func startTimer() {

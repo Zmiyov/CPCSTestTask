@@ -10,20 +10,24 @@ import Combine
 
 class MockVerifyOTPUseCase: VerifyOTPUseCase {
     
+    
     let takeCodeService = MockTakeCodeService()
     
     var timeRemaining = CurrentValueSubject<Int, Error>(5)
     var timerExpired = CurrentValueSubject<Bool, Error>(false)
     var verified = PassthroughSubject<Bool, Error>()
     
-    func verifyCode(code: String) {
-        let storedCode = takeCodeService.code
-        let verificationResult = code == storedCode
+    func sendCodeVerifyingResult(code: String) {
+        let verificationResult = checkCode(code: takeCodeService.code)
         verified.send(verificationResult)
     }
     
+    func checkCode(code: String) -> Bool {
+        let storedCode = takeCodeService.code
+        return code == storedCode
+    }
+    
     func startTimer() {
-        
         timerExpired.send(true)
     }
 

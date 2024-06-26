@@ -13,25 +13,9 @@ struct OTPView: View {
     
     var body: some View {
         VStack {
-            
-            Text("Verify your Email Address")
-                .font(.title2)
-                .fontWeight(.semibold)
-                .foregroundStyle(.black)
-            if otpDataViewModel.codeChecked {
-                Text(otpDataViewModel.infoText)
-                    .font(.caption)
-                    .fontWeight(.thin)
-                    .foregroundStyle(otpDataViewModel.verified ? .green : .red)
-                    .padding(.top, 4)
-            } else {
-                Text(otpDataViewModel.infoText)
-                    .font(.caption)
-                    .fontWeight(.thin)
-                    .foregroundStyle(.black)
-                    .padding(.top, 4)
-            }
-            
+
+            TopTexts()
+                .padding(.horizontal)
             
             OTPTextFieldView(otpDataViewModel: otpDataViewModel)
                 .padding(.horizontal, 50)
@@ -44,6 +28,35 @@ struct OTPView: View {
                 ContinueButton()
             }
         }
+    }
+    
+    @ViewBuilder
+    func TopTexts() -> some View {
+        Text("Verify your Email Address")
+            .font(.title2)
+            .fontWeight(.semibold)
+            .foregroundStyle(.black)
+        if otpDataViewModel.codeChecked {
+            Text(otpDataViewModel.infoText)
+                .font(.caption)
+                .fontWeight(.light)
+                .foregroundStyle(otpDataViewModel.verified ? .green : .red)
+                .padding(.top, 4)
+        } else {
+            Text(otpDataViewModel.infoText)
+                .font(.caption)
+                .fontWeight(.light)
+                .foregroundStyle(.black)
+                .padding(.top, 4)
+        }
+    }
+    
+    @ViewBuilder
+    func CountDownView() -> some View {
+        Text(otpDataViewModel.timeStr)
+            .font(Font.system(size: 15))
+            .foregroundColor(Color.black)
+            .fontWeight(.regular)
     }
     
     @ViewBuilder
@@ -60,14 +73,6 @@ struct OTPView: View {
         .padding(15)
         .cornerRadius(50)
         .disabled(!otpDataViewModel.timerExpired)
-    }
-    
-    @ViewBuilder
-    func CountDownView() -> some View {
-        Text(otpDataViewModel.timeStr)
-            .font(Font.system(size: 15))
-            .foregroundColor(Color.black)
-            .fontWeight(.regular)
     }
     
     @ViewBuilder

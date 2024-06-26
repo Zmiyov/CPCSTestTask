@@ -11,5 +11,3 @@ struct CodeServiceModel {
     let code: String
     let refreshTime: Int
 }
-
-let mockCodeServiceModel = CodeServiceModel(code: "1111", refreshTime: 60)

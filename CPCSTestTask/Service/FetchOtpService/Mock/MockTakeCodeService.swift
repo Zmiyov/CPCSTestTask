@@ -7,6 +7,8 @@
 
 import Foundation
 
+let mockCodeServiceModel = CodeServiceModel(code: "1111", refreshTime: 60)
+
 class MockTakeCodeService: TakeCodeServiceProtocol {
     
     var code: String = ""
