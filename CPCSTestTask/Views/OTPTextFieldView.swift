@@ -52,12 +52,12 @@ struct OTPTextFieldView: View {
             .foregroundColor(.blue)
             .multilineTextAlignment(.center)
             .keyboardType(.numberPad)
-            .onChange(of: otpDataViewModel.verificationCode) {oldVal, newVal in
+            .onChange(of: otpDataViewModel.verificationCode) { newVal in
                 let filtered = newVal.filter { "0123456789".contains($0) }
                 if filtered == newVal, filtered.count <= Constants.OTP_CODE_LENGTH {
                     otpDataViewModel.verificationCode = filtered
                 } else {
-                    otpDataViewModel.verificationCode = oldVal
+                    otpDataViewModel.verificationCode = String(filtered.prefix(Constants.OTP_CODE_LENGTH))
                 }
             }
             .focused($focusedField, equals: .field)
