@@ -22,18 +22,16 @@ struct OTPTextFieldView: View {
             backgroundTextField(viewModel: otpDataViewModel, codeText: $otpDataViewModel.verificationCode)
             HStack(spacing: 15) {
                 ForEach(0..<Constants.OTP_CODE_LENGTH) { index in
-                    ZStack {
-                        Text(otpDataViewModel.getPin(at: index))
-                            .font(.system(size: 24))
-                            .fontWeight(.regular)
-                            .foregroundColor(.black)
-                            .frame(width: 45, height: 45)
-                            .background(Color.white.clipShape(RoundedRectangle(cornerRadius: 5)))
-                            .background(
-                                RoundedRectangle(cornerRadius: 5)
-                                    .stroke(.blue, lineWidth: 2)
-                            )
-                    }
+                    Text(otpDataViewModel.getPin(at: index))
+                        .font(.system(size: 24))
+                        .fontWeight(.regular)
+                        .foregroundColor(.black)
+                        .frame(width: 45, height: 45)
+                        .background(Color.white.clipShape(RoundedRectangle(cornerRadius: 5)))
+                        .background(
+                            RoundedRectangle(cornerRadius: 5)
+                                .stroke(.blue, lineWidth: 2)
+                        )
                 }
             }
         }
