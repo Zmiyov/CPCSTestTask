@@ -11,12 +11,4 @@ struct Constants {
     static let OTP_CODE_LENGTH = 4
 }
 
-extension Font {
-    
-//    struct Base {
-        static func otpScreenFont(size: CGFloat) -> Font? {
-            Font.system(size: size)
-        }
-//    }
-}
 

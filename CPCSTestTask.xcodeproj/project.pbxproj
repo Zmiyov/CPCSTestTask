@@ -22,6 +22,7 @@
 		A54F16802C2C81BF002D9FDD /* VerifyOTPUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54F167F2C2C81BF002D9FDD /* VerifyOTPUseCaseTest.swift */; };
 		A54F16832C2C83D6002D9FDD /* MockVerifyOTPUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54F16822C2C83D6002D9FDD /* MockVerifyOTPUseCase.swift */; };
 		A5F732062C2D40BC003A1782 /* VerifyOTPUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F732052C2D40BC003A1782 /* VerifyOTPUseCaseProtocol.swift */; };
+		A5F7320A2C2DDE59003A1782 /* Font+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F732092C2DDE59003A1782 /* Font+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		A54F167F2C2C81BF002D9FDD /* VerifyOTPUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyOTPUseCaseTest.swift; sourceTree = "<group>"; };
 		A54F16822C2C83D6002D9FDD /* MockVerifyOTPUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockVerifyOTPUseCase.swift; sourceTree = "<group>"; };
 		A5F732052C2D40BC003A1782 /* VerifyOTPUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyOTPUseCaseProtocol.swift; sourceTree = "<group>"; };
+		A5F732092C2DDE59003A1782 /* Font+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +154,7 @@
 		A54F16642C2BED28002D9FDD /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				A5F732082C2DDE33003A1782 /* Extensions */,
 				A54F16652C2BED36002D9FDD /* Constants.swift */,
 			);
 			path = Common;
@@ -221,6 +224,14 @@
 				A54F16372C2BE8FA002D9FDD /* ContentView.swift */,
 			);
 			path = Application;
+			sourceTree = "<group>";
+		};
+		A5F732082C2DDE33003A1782 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A5F732092C2DDE59003A1782 /* Font+.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -327,6 +338,7 @@
 				A54F16832C2C83D6002D9FDD /* MockVerifyOTPUseCase.swift in Sources */,
 				A54F167E2C2C7818002D9FDD /* TakeCodeServiceProtocol.swift in Sources */,
 				A54F16792C2C75ED002D9FDD /* CodeServiceModel.swift in Sources */,
+				A5F7320A2C2DDE59003A1782 /* Font+.swift in Sources */,
 				A5F732062C2D40BC003A1782 /* VerifyOTPUseCaseProtocol.swift in Sources */,
 				A54F16382C2BE8FA002D9FDD /* ContentView.swift in Sources */,
 				A54F16362C2BE8FA002D9FDD /* CPCSTestTaskApp.swift in Sources */,
