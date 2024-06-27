@@ -50,7 +50,7 @@ final class VerifyOTPUseCaseTest: XCTestCase {
         
         let expectation = XCTestExpectation(description: "Checking of OTP code")
         viewModel.verifyOTPUseCase.sendCodeVerifyingResult(code: wrongPass)
-        viewModel.$verified
+        viewModel.$codeIsVerified
             .sink { isVerified in
                 if isVerified == false {
                     expectation.fulfill()
@@ -67,7 +67,7 @@ final class VerifyOTPUseCaseTest: XCTestCase {
         
         let expectation = XCTestExpectation(description: "Checking of OTP code")
         viewModel.verifyOTPUseCase.sendCodeVerifyingResult(code: rightPass)
-        viewModel.$verified
+        viewModel.$codeIsVerified
             .sink { isVerified in
                 if isVerified == true {
                     expectation.fulfill()

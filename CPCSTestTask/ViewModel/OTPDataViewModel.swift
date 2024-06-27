@@ -14,18 +14,18 @@ final class OTPDataViewModel: ObservableObject {
     let verifyOTPUseCase: VerifyOTPUseCaseProtocol
         
     @Published var timerExpired = false
-    @Published var timeStr = "Resend code in 00:00"
+    @Published var timeStr = "Tap to resend code"
     @Published var infoText = "Enter 4 digit code we'll text you on Email"
     @Published var continueButtonIsActive = false
     @Published var verificationCode = "" {
         didSet {
-            codeChecked = false
+            firstCodeCheckingDone = false
             infoText = "Enter 4 digit code we'll text you on Email"
             continueButtonIsActive = !(verificationCode.count < Constants.OTP_CODE_LENGTH)
         }
     }
-    @Published var verified = false
-    @Published var codeChecked = false
+    @Published var codeIsVerified = false
+    @Published var firstCodeCheckingDone = false
 
     init(verifyOTPUseCase: VerifyOTPUseCaseProtocol) {
         self.verifyOTPUseCase = verifyOTPUseCase
@@ -49,6 +49,9 @@ final class OTPDataViewModel: ObservableObject {
                 
             } receiveValue: { [weak self] timeExpired in
                 self?.timerExpired = timeExpired
+                if timeExpired {
+                    self?.timeStr = "Tap to resend code"
+                }
             }.store(in: &cancellables)
         
         verifyOTPUseCase.verified
@@ -56,8 +59,8 @@ final class OTPDataViewModel: ObservableObject {
             .sink { _ in
                 
             } receiveValue: { [weak self] isVerified in
-                self?.codeChecked = true
-                self?.verified = isVerified
+                self?.firstCodeCheckingDone = true
+                self?.codeIsVerified = isVerified
                 if isVerified {
                     self?.infoText = "Code is verified!"
                 } else {

@@ -36,11 +36,11 @@ struct OTPView: View {
             .font(.title2)
             .fontWeight(.semibold)
             .foregroundStyle(.black)
-        if otpDataViewModel.codeChecked {
+        if otpDataViewModel.firstCodeCheckingDone {
             Text(otpDataViewModel.infoText)
                 .font(.caption)
                 .fontWeight(.light)
-                .foregroundStyle(otpDataViewModel.verified ? .green : .red)
+                .foregroundStyle(otpDataViewModel.codeIsVerified ? .green : .red)
                 .padding(.top, 4)
         } else {
             Text(otpDataViewModel.infoText)
