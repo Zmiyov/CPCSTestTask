@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    
     var body: some View {
         OTPView()
     }
@@ -15,4 +16,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .environmentObject(OTPDataViewModel(verifyOTPUseCase: DefaultVerifyOTPUseCase(takeCodeService: MockTakeCodeService())))
 }

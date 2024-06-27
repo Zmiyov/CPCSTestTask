@@ -11,17 +11,17 @@ import Combine
 
 final class VerifyOTPUseCaseTest: XCTestCase {
     
-    var viewModel: OTPDataViewModel!
+    var sut: VerifyOTPUseCaseProtocol!
     var cancellables: Set<AnyCancellable>!
 
     override func setUp()  {
         super.setUp()
-        viewModel = OTPDataViewModel(verifyOTPUseCase: MockVerifyOTPUseCase())
+        sut = MockVerifyOTPUseCase()
         cancellables = []
     }
 
     override func tearDown() {
-        viewModel = nil
+        sut = nil
         cancellables = nil
         super.tearDown()
     }
@@ -29,15 +29,13 @@ final class VerifyOTPUseCaseTest: XCTestCase {
     //MARK: - Resend button activation test
     func testResendButtonActivation() {
         let expectation = XCTestExpectation(description: "Resend button should be activated after timer ends")
-        viewModel.verifyOTPUseCase.startTimer()
+        sut.startTimer()
         
-        viewModel.$timerExpired
-            .sink { isActive in
-                if isActive == true {
-                    expectation.fulfill()
-                } else {
-                    print("Resend is not active")
-                }
+        sut.timerExpired
+            .sink { error in
+                print(error)
+            } receiveValue: { isActive in
+                expectation.fulfill()
             }
             .store(in: &cancellables)
         
@@ -48,34 +46,40 @@ final class VerifyOTPUseCaseTest: XCTestCase {
     func testInvalidCodeState() {
         let wrongPass = "1234"
         
-        let expectation = XCTestExpectation(description: "Checking of OTP code")
-        viewModel.verifyOTPUseCase.sendCodeVerifyingResult(code: wrongPass)
-        viewModel.$codeIsVerified
-            .sink { isVerified in
-                if isVerified == false {
+        let expectation = XCTestExpectation(description: "Checking invalid code state")
+        sut.verified
+            .sink { error in
+                print(error)
+            } receiveValue: { isVerified in
+                if !isVerified {
                     expectation.fulfill()
                 } else {
                     print("true")
                 }
             }
             .store(in: &cancellables)
+        
+        sut.sendCodeVerifyingResult(code: wrongPass)
+        
         wait(for: [expectation], timeout: 6.0)
     }
     
     func testValidCodeState() {
         let rightPass = "1111"
         
-        let expectation = XCTestExpectation(description: "Checking of OTP code")
-        viewModel.verifyOTPUseCase.sendCodeVerifyingResult(code: rightPass)
-        viewModel.$codeIsVerified
-            .sink { isVerified in
-                if isVerified == true {
+        let expectation = XCTestExpectation(description: "Checking valid code state")
+        sut.verified
+            .sink { error in
+                print(error)
+            } receiveValue: { isVerified in
+                if isVerified {
                     expectation.fulfill()
                 } else {
                     print("false")
                 }
             }
             .store(in: &cancellables)
+        sut.sendCodeVerifyingResult(code: rightPass)
         wait(for: [expectation], timeout: 6.0)
     }
     
@@ -83,14 +87,14 @@ final class VerifyOTPUseCaseTest: XCTestCase {
     func testCodeIsValid() {
         let validPass = "1111"
         
-        let result = viewModel.verifyOTPUseCase.checkCode(code: validPass)
+        let result = sut.checkCode(code: validPass)
         XCTAssertTrue(result, "The password should be valid")
     }
     
     func testCodeIsInvalid() {
         let wrongPass = "1234"
         
-        let result = viewModel.verifyOTPUseCase.checkCode(code: wrongPass)
+        let result = sut.checkCode(code: wrongPass)
         XCTAssertFalse(result, "The password should be invalid")
     }
 }

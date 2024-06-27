@@ -13,14 +13,18 @@ final class DefaultVerifyOTPUseCase: VerifyOTPUseCaseProtocol {
     private var timer: AnyCancellable?
     private let takeCodeService: TakeCodeServiceProtocol
     
-    var timeRemaining: CurrentValueSubject<Int, Error>
-    var timerExpired = CurrentValueSubject<Bool, Error>(false)
-    var verified = PassthroughSubject<Bool, Error>()
+    let timeRemaining: CurrentValueSubject<Int, Error>
+    let timerExpired = CurrentValueSubject<Bool, Error>(false)
+    let verified = PassthroughSubject<Bool, Error>()
     
     init(takeCodeService: TakeCodeServiceProtocol) {
         self.takeCodeService = takeCodeService
         self.timeRemaining = CurrentValueSubject<Int, Error>(takeCodeService.refreshTime)
         startTimer()
+    }
+    
+    deinit {
+        timer?.cancel()
     }
     
     func sendCodeVerifyingResult(code: String) {

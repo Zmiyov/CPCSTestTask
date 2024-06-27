@@ -9,93 +9,80 @@ import SwiftUI
 
 struct OTPView: View {
     
-    @StateObject var otpDataViewModel = OTPDataViewModel(verifyOTPUseCase: DefaultVerifyOTPUseCase(takeCodeService: MockTakeCodeService()))
+    private enum Constants {
+        static let titleSize: CGFloat = 22
+        static let resendTextSize: CGFloat = 15
+        static let infoTextSize: CGFloat = 12
+        static let horizontalPadding: CGFloat = 20
+    }
+
+    @EnvironmentObject var otpDataViewModel: OTPDataViewModel
     
     var body: some View {
-        VStack {
-
-            TopTexts()
-                .padding(.horizontal)
-            
-            OTPTextFieldView(otpDataViewModel: otpDataViewModel)
-                .padding(.horizontal, 50)
-                .padding(.vertical, 20)
-                .padding(.top, 8)
-            
-            VStack(spacing: 0){
-                CountDownView()
-                ButtonReactivate()
-                ContinueButton()
-            }
+        VStack(spacing: 25) {
+            topTextsView(viewModel: otpDataViewModel)
+            OTPTextFieldView()
+            underCodeView(viewModel: otpDataViewModel)
         }
+        .padding(.horizontal, Constants.horizontalPadding)
     }
     
     @ViewBuilder
-    func TopTexts() -> some View {
-        Text("Verify your Email Address")
-            .font(.title2)
-            .fontWeight(.semibold)
-            .foregroundStyle(.black)
-        if otpDataViewModel.firstCodeCheckingDone {
-            Text(otpDataViewModel.infoText)
-                .font(.caption)
+    private func topTextsView(viewModel: OTPDataViewModel) -> some View {
+        VStack(spacing: 10){
+            Text("Verify your Email Address")
+                .font(.otpScreenFont(size: Constants.titleSize))
+                .fontWeight(.semibold)
+                .foregroundStyle(.black)
+            
+            Text(viewModel.infoText)
+                .font(.otpScreenFont(size: Constants.infoTextSize))
                 .fontWeight(.light)
-                .foregroundStyle(otpDataViewModel.codeIsVerified ? .green : .red)
-                .padding(.top, 4)
-        } else {
-            Text(otpDataViewModel.infoText)
-                .font(.caption)
-                .fontWeight(.light)
+                .foregroundStyle(viewModel.firstCodeCheckingDone ? (viewModel.codeIsVerified ? .green : .red) : .black)
                 .foregroundStyle(.black)
                 .padding(.top, 4)
         }
     }
     
-    @ViewBuilder
-    func CountDownView() -> some View {
-        Text(otpDataViewModel.timeStr)
-            .font(Font.system(size: 15))
-            .foregroundColor(Color.black)
-            .fontWeight(.regular)
-    }
-    
-    @ViewBuilder
-    func ButtonReactivate() -> some View {
-        Button(action: {
-            otpDataViewModel.startTimer()
-        }) {
-            Text("Resend")
-                .foregroundColor(otpDataViewModel.timerExpired ? Color.blue : Color.gray)
-                .font(Font.system(size: 15))
-                .fontWeight(.medium)
-                .frame(maxWidth: 150)
+    private func underCodeView(viewModel: OTPDataViewModel) -> some View {
+        VStack(spacing: 0) {
+            Text(viewModel.timeStr)
+                .font(.otpScreenFont(size: Constants.resendTextSize))
+                .foregroundColor(.black)
+                .fontWeight(.regular)
+            
+            Button(action: {
+                viewModel.startTimer()
+            }) {
+                Text("Resend")
+                    .foregroundColor(viewModel.timerExpired ? .blue : .gray)
+                    .font(.otpScreenFont(size: Constants.resendTextSize))
+                    .fontWeight(.medium)
+                    .frame(width: 150)
+            }
+            .padding(15)
+            .disabled(!viewModel.timerExpired)
+            
+            Button(action: {
+                viewModel.checkCode()
+            }, label: {
+                Spacer()
+                Text("Continue")
+                    .font(.otpScreenFont(size: Constants.titleSize))
+                    .fontWeight(.semibold)
+                    .foregroundColor(.white)
+                Spacer()
+            })
+            .padding(15)
+            .background(viewModel.continueButtonIsActive ? .blue : .gray)
+            .clipShape(Capsule())
+            .padding(.top)
+            .disabled(!viewModel.continueButtonIsActive)
         }
-        .padding(15)
-        .cornerRadius(50)
-        .disabled(!otpDataViewModel.timerExpired)
-    }
-    
-    @ViewBuilder
-    func ContinueButton() -> some View {
-        Button(action: {
-            otpDataViewModel.checkCode()
-        }, label: {
-            Spacer()
-            Text("Continue")
-                .font(.system(.title3, design: .rounded))
-                .fontWeight(.semibold)
-                .foregroundColor(.white)
-            Spacer()
-        })
-        .padding(15)
-        .background(otpDataViewModel.continueButtonIsActive ? Color.blue : Color.gray)
-        .clipShape(Capsule())
-        .padding(.horizontal)
-        .padding(.top)
-        .disabled(!otpDataViewModel.continueButtonIsActive)
     }
 }
 
 #Preview {
     OTPView()
+        .environmentObject(OTPDataViewModel(verifyOTPUseCase: DefaultVerifyOTPUseCase(takeCodeService: MockTakeCodeService())))
 }

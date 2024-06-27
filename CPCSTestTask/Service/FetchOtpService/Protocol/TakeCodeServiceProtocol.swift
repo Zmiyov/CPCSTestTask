@@ -11,5 +11,5 @@ protocol TakeCodeServiceProtocol {
     var code: String { get }
     var refreshTime: Int { get }
     
-    func fetchOtpCode(codeServiceModel: CodeServiceModel) -> Void
+    func fetchOtpCode(codeServiceModel: CodeServiceModel)
 }

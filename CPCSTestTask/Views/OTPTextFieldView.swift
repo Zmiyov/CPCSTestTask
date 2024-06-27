@@ -9,33 +9,29 @@ import SwiftUI
 
 struct OTPTextFieldView: View {
     
-    enum FocusField: Hashable {
+    private enum FocusField: Hashable {
         case field
     }
     
     @FocusState private var focusedField: FocusField?
-    @ObservedObject var otpDataViewModel: OTPDataViewModel
+    @EnvironmentObject var otpDataViewModel: OTPDataViewModel
     
-    init(otpDataViewModel: OTPDataViewModel){
-        self.otpDataViewModel = otpDataViewModel
-    }
-    
-    public var body: some View {
+    var body: some View {
         
         ZStack(alignment: .center) {
-            BackgroundTextField()
+            backgroundTextField(viewModel: otpDataViewModel, codeText: $otpDataViewModel.verificationCode)
             HStack(spacing: 15) {
                 ForEach(0..<Constants.OTP_CODE_LENGTH) { index in
                     ZStack {
                         Text(otpDataViewModel.getPin(at: index))
-                            .font(Font.system(size: 24))
+                            .font(.system(size: 24))
                             .fontWeight(.regular)
-                            .foregroundColor(Color.black)
+                            .foregroundColor(.black)
                             .frame(width: 45, height: 45)
-                            .background(Color.white.cornerRadius(5))
+                            .background(Color.white.clipShape(RoundedRectangle(cornerRadius: 5)))
                             .background(
                                 RoundedRectangle(cornerRadius: 5)
-                                    .stroke(Color.blue, lineWidth: 2)
+                                    .stroke(.blue, lineWidth: 2)
                             )
                     }
                 }
@@ -43,22 +39,16 @@ struct OTPTextFieldView: View {
         }
     }
     
-    @ViewBuilder
-    func BackgroundTextField() -> some View {
-        TextField("", text: $otpDataViewModel.verificationCode)
+    private func backgroundTextField(viewModel: OTPDataViewModel, codeText: Binding<String>) -> some View {
+        TextField("", text: codeText)
             .frame(width: 0, height: 0, alignment: .center)
-            .font(Font.system(size: 0))
+            .font(.system(size: 0))
             .accentColor(.blue)
             .foregroundColor(.blue)
             .multilineTextAlignment(.center)
             .keyboardType(.numberPad)
-            .onChange(of: otpDataViewModel.verificationCode) { newVal in
-                let filtered = newVal.filter { "0123456789".contains($0) }
-                if filtered == newVal, filtered.count <= Constants.OTP_CODE_LENGTH {
-                    otpDataViewModel.verificationCode = filtered
-                } else {
-                    otpDataViewModel.verificationCode = String(filtered.prefix(Constants.OTP_CODE_LENGTH))
-                }
+            .onChange(of: viewModel.verificationCode) { newVal in
+                viewModel.getOnlyValidFormatCode(inputText: newVal, viewModel: viewModel)
             }
             .focused($focusedField, equals: .field)
             .task {
@@ -72,5 +62,6 @@ struct OTPTextFieldView: View {
 }
 
 #Preview {
-    OTPTextFieldView(otpDataViewModel: OTPDataViewModel(verifyOTPUseCase: DefaultVerifyOTPUseCase(takeCodeService: MockTakeCodeService())))
+    OTPTextFieldView()
+        .environmentObject(OTPDataViewModel(verifyOTPUseCase: DefaultVerifyOTPUseCase(takeCodeService: MockTakeCodeService())))
 }

@@ -11,9 +11,6 @@
 		A54F16382C2BE8FA002D9FDD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54F16372C2BE8FA002D9FDD /* ContentView.swift */; };
 		A54F163A2C2BE8FB002D9FDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A54F16392C2BE8FB002D9FDD /* Assets.xcassets */; };
 		A54F163D2C2BE8FB002D9FDD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A54F163C2C2BE8FB002D9FDD /* Preview Assets.xcassets */; };
-		A54F16472C2BE8FB002D9FDD /* CPCSTestTaskTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54F16462C2BE8FB002D9FDD /* CPCSTestTaskTests.swift */; };
-		A54F16512C2BE8FB002D9FDD /* CPCSTestTaskUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54F16502C2BE8FB002D9FDD /* CPCSTestTaskUITests.swift */; };
-		A54F16532C2BE8FB002D9FDD /* CPCSTestTaskUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54F16522C2BE8FB002D9FDD /* CPCSTestTaskUITestsLaunchTests.swift */; };
 		A54F16632C2BECD6002D9FDD /* OTPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54F16622C2BECD6002D9FDD /* OTPView.swift */; };
 		A54F16662C2BED36002D9FDD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54F16652C2BED36002D9FDD /* Constants.swift */; };
 		A54F16682C2BEDD0002D9FDD /* OTPTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54F16672C2BEDD0002D9FDD /* OTPTextFieldView.swift */; };
@@ -35,13 +32,6 @@
 			remoteGlobalIDString = A54F16312C2BE8FA002D9FDD;
 			remoteInfo = CPCSTestTask;
 		};
-		A54F164D2C2BE8FB002D9FDD /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A54F162A2C2BE8FA002D9FDD /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A54F16312C2BE8FA002D9FDD;
-			remoteInfo = CPCSTestTask;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -51,10 +41,6 @@
 		A54F16392C2BE8FB002D9FDD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A54F163C2C2BE8FB002D9FDD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		A54F16422C2BE8FB002D9FDD /* CPCSTestTaskTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CPCSTestTaskTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A54F16462C2BE8FB002D9FDD /* CPCSTestTaskTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPCSTestTaskTests.swift; sourceTree = "<group>"; };
-		A54F164C2C2BE8FB002D9FDD /* CPCSTestTaskUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CPCSTestTaskUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A54F16502C2BE8FB002D9FDD /* CPCSTestTaskUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPCSTestTaskUITests.swift; sourceTree = "<group>"; };
-		A54F16522C2BE8FB002D9FDD /* CPCSTestTaskUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPCSTestTaskUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		A54F16622C2BECD6002D9FDD /* OTPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPView.swift; sourceTree = "<group>"; };
 		A54F16652C2BED36002D9FDD /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A54F16672C2BEDD0002D9FDD /* OTPTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPTextFieldView.swift; sourceTree = "<group>"; };
@@ -83,13 +69,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A54F16492C2BE8FB002D9FDD /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -98,7 +77,6 @@
 			children = (
 				A54F16342C2BE8FA002D9FDD /* CPCSTestTask */,
 				A54F16452C2BE8FB002D9FDD /* CPCSTestTaskTests */,
-				A54F164F2C2BE8FB002D9FDD /* CPCSTestTaskUITests */,
 				A54F16332C2BE8FA002D9FDD /* Products */,
 			);
 			sourceTree = "<group>";
@@ -108,7 +86,6 @@
 			children = (
 				A54F16322C2BE8FA002D9FDD /* CPCSTestTask.app */,
 				A54F16422C2BE8FB002D9FDD /* CPCSTestTaskTests.xctest */,
-				A54F164C2C2BE8FB002D9FDD /* CPCSTestTaskUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -139,19 +116,9 @@
 		A54F16452C2BE8FB002D9FDD /* CPCSTestTaskTests */ = {
 			isa = PBXGroup;
 			children = (
-				A54F16462C2BE8FB002D9FDD /* CPCSTestTaskTests.swift */,
 				A54F167F2C2C81BF002D9FDD /* VerifyOTPUseCaseTest.swift */,
 			);
 			path = CPCSTestTaskTests;
-			sourceTree = "<group>";
-		};
-		A54F164F2C2BE8FB002D9FDD /* CPCSTestTaskUITests */ = {
-			isa = PBXGroup;
-			children = (
-				A54F16502C2BE8FB002D9FDD /* CPCSTestTaskUITests.swift */,
-				A54F16522C2BE8FB002D9FDD /* CPCSTestTaskUITestsLaunchTests.swift */,
-			);
-			path = CPCSTestTaskUITests;
 			sourceTree = "<group>";
 		};
 		A54F165F2C2BE9E8002D9FDD /* Views */ = {
@@ -294,24 +261,6 @@
 			productReference = A54F16422C2BE8FB002D9FDD /* CPCSTestTaskTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		A54F164B2C2BE8FB002D9FDD /* CPCSTestTaskUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = A54F165C2C2BE8FB002D9FDD /* Build configuration list for PBXNativeTarget "CPCSTestTaskUITests" */;
-			buildPhases = (
-				A54F16482C2BE8FB002D9FDD /* Sources */,
-				A54F16492C2BE8FB002D9FDD /* Frameworks */,
-				A54F164A2C2BE8FB002D9FDD /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				A54F164E2C2BE8FB002D9FDD /* PBXTargetDependency */,
-			);
-			name = CPCSTestTaskUITests;
-			productName = CPCSTestTaskUITests;
-			productReference = A54F164C2C2BE8FB002D9FDD /* CPCSTestTaskUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -326,10 +275,6 @@
 						CreatedOnToolsVersion = 15.4;
 					};
 					A54F16412C2BE8FB002D9FDD = {
-						CreatedOnToolsVersion = 15.4;
-						TestTargetID = A54F16312C2BE8FA002D9FDD;
-					};
-					A54F164B2C2BE8FB002D9FDD = {
 						CreatedOnToolsVersion = 15.4;
 						TestTargetID = A54F16312C2BE8FA002D9FDD;
 					};
@@ -350,7 +295,6 @@
 			targets = (
 				A54F16312C2BE8FA002D9FDD /* CPCSTestTask */,
 				A54F16412C2BE8FB002D9FDD /* CPCSTestTaskTests */,
-				A54F164B2C2BE8FB002D9FDD /* CPCSTestTaskUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -366,13 +310,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		A54F16402C2BE8FB002D9FDD /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A54F164A2C2BE8FB002D9FDD /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -406,16 +343,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A54F16802C2C81BF002D9FDD /* VerifyOTPUseCaseTest.swift in Sources */,
-				A54F16472C2BE8FB002D9FDD /* CPCSTestTaskTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A54F16482C2BE8FB002D9FDD /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A54F16532C2BE8FB002D9FDD /* CPCSTestTaskUITestsLaunchTests.swift in Sources */,
-				A54F16512C2BE8FB002D9FDD /* CPCSTestTaskUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -426,11 +353,6 @@
 			isa = PBXTargetDependency;
 			target = A54F16312C2BE8FA002D9FDD /* CPCSTestTask */;
 			targetProxy = A54F16432C2BE8FB002D9FDD /* PBXContainerItemProxy */;
-		};
-		A54F164E2C2BE8FB002D9FDD /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = A54F16312C2BE8FA002D9FDD /* CPCSTestTask */;
-			targetProxy = A54F164D2C2BE8FB002D9FDD /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -654,44 +576,6 @@
 			};
 			name = Release;
 		};
-		A54F165D2C2BE8FB002D9FDD /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = H32J47ML7Z;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.pysarenkodev.CPCSTestTaskUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = CPCSTestTask;
-			};
-			name = Debug;
-		};
-		A54F165E2C2BE8FB002D9FDD /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = H32J47ML7Z;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.pysarenkodev.CPCSTestTaskUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = CPCSTestTask;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -718,15 +602,6 @@
 			buildConfigurations = (
 				A54F165A2C2BE8FB002D9FDD /* Debug */,
 				A54F165B2C2BE8FB002D9FDD /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		A54F165C2C2BE8FB002D9FDD /* Build configuration list for PBXNativeTarget "CPCSTestTaskUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A54F165D2C2BE8FB002D9FDD /* Debug */,
-				A54F165E2C2BE8FB002D9FDD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

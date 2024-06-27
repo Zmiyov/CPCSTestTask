@@ -10,13 +10,13 @@ import Combine
 
 final class OTPDataViewModel: ObservableObject {
     
-    var cancellables = Set<AnyCancellable>()
-    let verifyOTPUseCase: VerifyOTPUseCaseProtocol
+    private var cancellables = Set<AnyCancellable>()
+    private let verifyOTPUseCase: VerifyOTPUseCaseProtocol
         
-    @Published var timerExpired = false
-    @Published var timeStr = "Tap to resend code"
-    @Published var infoText = "Enter 4 digit code we'll text you on Email"
-    @Published var continueButtonIsActive = false
+    @Published private(set) var timerExpired = false
+    @Published private(set) var timeStr = "Tap to resend code"
+    @Published private(set) var infoText = "Enter 4 digit code we'll text you on Email"
+    @Published private(set) var continueButtonIsActive = false
     @Published var verificationCode = "" {
         didSet {
             firstCodeCheckingDone = false
@@ -24,12 +24,11 @@ final class OTPDataViewModel: ObservableObject {
             continueButtonIsActive = !(verificationCode.count < Constants.OTP_CODE_LENGTH)
         }
     }
-    @Published var codeIsVerified = false
-    @Published var firstCodeCheckingDone = false
+    @Published private(set) var codeIsVerified = false
+    @Published private(set) var firstCodeCheckingDone = false
 
     init(verifyOTPUseCase: VerifyOTPUseCaseProtocol) {
         self.verifyOTPUseCase = verifyOTPUseCase
-        
         bindTimerPublishers()
     }
     
@@ -37,16 +36,26 @@ final class OTPDataViewModel: ObservableObject {
         
         verifyOTPUseCase.timeRemaining
             .receive(on: DispatchQueue.main)
-            .sink { _ in
-                
+            .sink { completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    print("Timer error: \(error)")
+                }
             } receiveValue: { [weak self] remainingTime in
                 self?.timeStr = "Resend code in " + String(format: "%02d:%02d", 00, remainingTime)
             }.store(in: &cancellables)
 
         verifyOTPUseCase.timerExpired
             .receive(on: DispatchQueue.main)
-            .sink { _ in
-                
+            .sink { completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    print("Updating resend button state error: \(error)")
+                }
             } receiveValue: { [weak self] timeExpired in
                 self?.timerExpired = timeExpired
                 if timeExpired {
@@ -56,8 +65,13 @@ final class OTPDataViewModel: ObservableObject {
         
         verifyOTPUseCase.verified
             .receive(on: DispatchQueue.main)
-            .sink { _ in
-                
+            .sink { completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    print("Verifying error: \(error)")
+                }
             } receiveValue: { [weak self] isVerified in
                 self?.firstCodeCheckingDone = true
                 self?.codeIsVerified = isVerified
@@ -67,7 +81,6 @@ final class OTPDataViewModel: ObservableObject {
                     self?.infoText = "Code is wrong. Please try again!"
                 }
             }.store(in: &cancellables)
-
     }
     
     func startTimer() {
@@ -85,11 +98,13 @@ final class OTPDataViewModel: ObservableObject {
         let character = self.verificationCode[self.verificationCode.index(self.verificationCode.startIndex, offsetBy: index)]
         return String(character)
     }
-    
-    func limitText(_ upper: Int) {
-        if verificationCode.count > upper {
-            verificationCode = String(verificationCode.prefix(upper))
+
+    func getOnlyValidFormatCode(inputText: String, viewModel: OTPDataViewModel) {
+        let filtered = inputText.filter { "0123456789".contains($0) }
+        if filtered == inputText, filtered.count <= Constants.OTP_CODE_LENGTH {
+            viewModel.verificationCode = filtered
+        } else {
+            viewModel.verificationCode = String(filtered.prefix(Constants.OTP_CODE_LENGTH))
         }
     }
-
 }

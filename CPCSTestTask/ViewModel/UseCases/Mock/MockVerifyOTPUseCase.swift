@@ -8,8 +8,7 @@
 import Foundation
 import Combine
 
-class MockVerifyOTPUseCase: VerifyOTPUseCaseProtocol {
-    
+final class MockVerifyOTPUseCase: VerifyOTPUseCaseProtocol {
     
     let takeCodeService = MockTakeCodeService()
     
@@ -18,7 +17,7 @@ class MockVerifyOTPUseCase: VerifyOTPUseCaseProtocol {
     var verified = PassthroughSubject<Bool, Error>()
     
     func sendCodeVerifyingResult(code: String) {
-        let verificationResult = checkCode(code: takeCodeService.code)
+        let verificationResult = checkCode(code: code)
         verified.send(verificationResult)
     }
     

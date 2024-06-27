@@ -9,11 +9,11 @@ import Foundation
 import Combine
 
 protocol VerifyOTPUseCaseProtocol {
-    var timeRemaining: CurrentValueSubject<Int, Error> { get set }
-    var timerExpired: CurrentValueSubject<Bool, Error> { get set }
-    var verified: PassthroughSubject<Bool, Error> { get set }
+    var timeRemaining: CurrentValueSubject<Int, Error> { get }
+    var timerExpired: CurrentValueSubject<Bool, Error> { get }
+    var verified: PassthroughSubject<Bool, Error> { get }
     
-    func sendCodeVerifyingResult(code: String) -> Void
+    func sendCodeVerifyingResult(code: String)
     func checkCode(code: String) -> Bool
-    func startTimer() -> Void
+    func startTimer()
 }

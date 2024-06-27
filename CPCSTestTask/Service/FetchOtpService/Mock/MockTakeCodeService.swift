@@ -9,10 +9,10 @@ import Foundation
 
 let mockCodeServiceModel = CodeServiceModel(code: "1111", refreshTime: 60)
 
-class MockTakeCodeService: TakeCodeServiceProtocol {
+final class MockTakeCodeService: TakeCodeServiceProtocol {
     
-    var code: String = ""
-    var refreshTime: Int = 60
+    var code = ""
+    var refreshTime = 60
     
     init() {
         fetchOtpCode(codeServiceModel: mockCodeServiceModel)
