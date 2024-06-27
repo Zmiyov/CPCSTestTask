@@ -24,6 +24,7 @@
 		A54F167E2C2C7818002D9FDD /* TakeCodeServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54F167D2C2C7818002D9FDD /* TakeCodeServiceProtocol.swift */; };
 		A54F16802C2C81BF002D9FDD /* VerifyOTPUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54F167F2C2C81BF002D9FDD /* VerifyOTPUseCaseTest.swift */; };
 		A54F16832C2C83D6002D9FDD /* MockVerifyOTPUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54F16822C2C83D6002D9FDD /* MockVerifyOTPUseCase.swift */; };
+		A5F732062C2D40BC003A1782 /* VerifyOTPUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F732052C2D40BC003A1782 /* VerifyOTPUseCaseProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 		A54F167D2C2C7818002D9FDD /* TakeCodeServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakeCodeServiceProtocol.swift; sourceTree = "<group>"; };
 		A54F167F2C2C81BF002D9FDD /* VerifyOTPUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyOTPUseCaseTest.swift; sourceTree = "<group>"; };
 		A54F16822C2C83D6002D9FDD /* MockVerifyOTPUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockVerifyOTPUseCase.swift; sourceTree = "<group>"; };
+		A5F732052C2D40BC003A1782 /* VerifyOTPUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyOTPUseCaseProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,13 +116,12 @@
 		A54F16342C2BE8FA002D9FDD /* CPCSTestTask */ = {
 			isa = PBXGroup;
 			children = (
+				A5F732072C2D5903003A1782 /* Application */,
 				A54F167A2C2C77C5002D9FDD /* Service */,
 				A54F16642C2BED28002D9FDD /* Common */,
 				A54F16772C2C75C7002D9FDD /* Model */,
 				A54F165F2C2BE9E8002D9FDD /* Views */,
 				A54F16602C2BE9F4002D9FDD /* ViewModel */,
-				A54F16352C2BE8FA002D9FDD /* CPCSTestTaskApp.swift */,
-				A54F16372C2BE8FA002D9FDD /* ContentView.swift */,
 				A54F16392C2BE8FB002D9FDD /* Assets.xcassets */,
 				A54F163B2C2BE8FB002D9FDD /* Preview Content */,
 			);
@@ -174,6 +175,7 @@
 		A54F16612C2BEA04002D9FDD /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
+				A5F732042C2D4094003A1782 /* Protocol */,
 				A54F16812C2C83C8002D9FDD /* Mock */,
 				A54F16702C2C2A27002D9FDD /* DefaultVerifyOTPUseCase.swift */,
 			);
@@ -235,6 +237,23 @@
 				A54F16822C2C83D6002D9FDD /* MockVerifyOTPUseCase.swift */,
 			);
 			path = Mock;
+			sourceTree = "<group>";
+		};
+		A5F732042C2D4094003A1782 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				A5F732052C2D40BC003A1782 /* VerifyOTPUseCaseProtocol.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		A5F732072C2D5903003A1782 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				A54F16352C2BE8FA002D9FDD /* CPCSTestTaskApp.swift */,
+				A54F16372C2BE8FA002D9FDD /* ContentView.swift */,
+			);
+			path = Application;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -371,6 +390,7 @@
 				A54F16832C2C83D6002D9FDD /* MockVerifyOTPUseCase.swift in Sources */,
 				A54F167E2C2C7818002D9FDD /* TakeCodeServiceProtocol.swift in Sources */,
 				A54F16792C2C75ED002D9FDD /* CodeServiceModel.swift in Sources */,
+				A5F732062C2D40BC003A1782 /* VerifyOTPUseCaseProtocol.swift in Sources */,
 				A54F16382C2BE8FA002D9FDD /* ContentView.swift in Sources */,
 				A54F16362C2BE8FA002D9FDD /* CPCSTestTaskApp.swift in Sources */,
 				A54F16712C2C2A27002D9FDD /* DefaultVerifyOTPUseCase.swift in Sources */,

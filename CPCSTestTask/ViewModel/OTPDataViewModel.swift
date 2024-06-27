@@ -11,7 +11,7 @@ import Combine
 final class OTPDataViewModel: ObservableObject {
     
     var cancellables = Set<AnyCancellable>()
-    let verifyOTPUseCase: VerifyOTPUseCase
+    let verifyOTPUseCase: VerifyOTPUseCaseProtocol
         
     @Published var timerExpired = false
     @Published var timeStr = "Resend code in 00:00"
@@ -27,7 +27,7 @@ final class OTPDataViewModel: ObservableObject {
     @Published var verified = false
     @Published var codeChecked = false
 
-    init(verifyOTPUseCase: VerifyOTPUseCase) {
+    init(verifyOTPUseCase: VerifyOTPUseCaseProtocol) {
         self.verifyOTPUseCase = verifyOTPUseCase
         
         bindTimerPublishers()

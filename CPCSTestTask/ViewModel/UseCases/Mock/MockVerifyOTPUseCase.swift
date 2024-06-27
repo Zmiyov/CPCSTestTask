@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-class MockVerifyOTPUseCase: VerifyOTPUseCase {
+class MockVerifyOTPUseCase: VerifyOTPUseCaseProtocol {
     
     
     let takeCodeService = MockTakeCodeService()

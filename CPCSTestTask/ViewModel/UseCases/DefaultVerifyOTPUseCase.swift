@@ -8,17 +8,7 @@
 import Foundation
 import Combine
 
-protocol VerifyOTPUseCase {
-    var timeRemaining: CurrentValueSubject<Int, Error> { get set }
-    var timerExpired: CurrentValueSubject<Bool, Error> { get set }
-    var verified: PassthroughSubject<Bool, Error> { get set }
-    
-    func sendCodeVerifyingResult(code: String) -> Void
-    func checkCode(code: String) -> Bool
-    func startTimer() -> Void
-}
-
-final class DefaultVerifyOTPUseCase: VerifyOTPUseCase {
+final class DefaultVerifyOTPUseCase: VerifyOTPUseCaseProtocol {
     
     private var timer: AnyCancellable?
     private let takeCodeService: TakeCodeServiceProtocol
